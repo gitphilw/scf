@@ -113,12 +113,12 @@ limitations under the License.
         <!--@ Create tt:layout element with all supported layouts for EBU-TT-D-Basic-DE -->
         <tt:layout>
             <tt:region 
-                xml:id="bottom"
+                xml:id="bottomRegion"
                 tts:displayAlign="after"
                 tts:origin="10% 10%"
                 tts:extent="80% 80%"/>
             <tt:region
-                xml:id="top"
+                xml:id="topRegion"
                 tts:displayAlign="before"
                 tts:origin="10% 10%"
                 tts:extent="80% 80%"/>
@@ -296,9 +296,7 @@ limitations under the License.
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-            <xsl:attribute name="region">
-                <xsl:value-of select="'bottom'"/>
-            </xsl:attribute>
+            <xsl:apply-templates select="@region"/>
             <xsl:attribute name="begin">
                 <xsl:apply-templates select="@begin"/>
             </xsl:attribute>
@@ -315,6 +313,22 @@ limitations under the License.
         </xsl:apply-templates>
     </xsl:template>
     
+    <!-- region mapping -->
+    <xsl:template match="@region">
+        <xsl:choose>
+            <xsl:when test=". = 'bottomAligned'">
+                <xsl:attribute name="region">
+                    <xsl:value-of select="'bottomRegion'"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test=". = 'topAligned'">
+                <xsl:attribute name="region">
+                    <xsl:value-of select="'topRegion'"/>
+                </xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="@begin">
         <xsl:variable name="begin" select="normalize-space(.)"/>
         <!-- Check if the attribute's content can be cast as a number if the ':' are not regarded -->
