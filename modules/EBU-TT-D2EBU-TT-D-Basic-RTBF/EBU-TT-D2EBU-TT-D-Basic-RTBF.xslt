@@ -458,10 +458,8 @@ limitations under the License.
     
     <xsl:template match="tt:br">
         <xsl:param name="inheritedStyle"/>
-        <!--@ Only write a tt:br element if it's between spans, tt:br elements for the sake of vertical placing are not mapped -->
-        <xsl:if test="following-sibling::tt:span">
-            <tt:br/>
-        </xsl:if>
+        <!-- RTBF: all tt:br elements are kept for the sake of vertical placing -->
+        <tt:br/>
         <xsl:apply-templates select="following-sibling::node()[1]">
             <xsl:with-param name="inheritedStyle" select="concat(@style, ' ', $inheritedStyle)" />
         </xsl:apply-templates>
