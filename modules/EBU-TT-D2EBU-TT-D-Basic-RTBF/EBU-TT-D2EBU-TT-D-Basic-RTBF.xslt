@@ -25,8 +25,8 @@ limitations under the License.
     </xsl:template>
     
     <xsl:template match="tt:tt">
-        <xsl:comment>Profile: EBU-TT-D-Basic-DE</xsl:comment>
-        <!--** EBU-TT-D-Basic-DE file's root element. Steps: -->
+        <xsl:comment>Profile: EBU-TT-D-Basic-RTBF</xsl:comment>
+        <!--** EBU-TT-D-Basic-RTBF file's root element. Steps: -->
         <tt:tt>
             <xsl:attribute name="ttp:timeBase">
                 <xsl:value-of select="'media'"/>
@@ -58,7 +58,7 @@ limitations under the License.
     </xsl:template>
                
     <xsl:template match="tt:styling">
-        <!--@ Create tt:styling for all supported styles in EBU-TT-D-Basic-DE -->
+        <!--@ Create tt:styling for all supported styles in EBU-TT-D-Basic-RTBF -->
         <tt:styling>
             <tt:style 
                 xml:id="defaultStyle"
@@ -110,7 +110,7 @@ limitations under the License.
     </xsl:template>
     
     <xsl:template match="tt:layout">
-        <!--@ Create tt:layout element with all supported layouts for EBU-TT-D-Basic-DE -->
+        <!--@ Create tt:layout element with all supported layouts for EBU-TT-D-Basic-RTBF -->
         <tt:layout>
             <tt:region 
                 xml:id="bottomRegion"
