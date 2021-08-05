@@ -1,14 +1,14 @@
-# EBU-TT-D-Basic-DE2WebVTT
-The EBU-TT-D-Basic-DE2WebVTT XSLT converts an EBU-TT-D-Basic-DE file
+# EBU-TT-D-Basic-RTBF2WebVTT
+The EBU-TT-D-Basic-RTBF2WebVTT XSLT converts an EBU-TT-D-Basic-RTBF file
 into a WebVTT file, including text colors. The module is implemented as
-XSLT 1.0 stylesheet `EBU-TT-D-Basic-DE2WebVTT.xslt`. The XSLT takes as
-input an EBU-TT-D-Basic-DE file and outputs a WebVTT text file.
+XSLT 1.0 stylesheet `EBU-TT-D-Basic-RTBF2WebVTT.xslt`. The XSLT takes as
+input an EBU-TT-D-Basic-RTBF file and outputs a WebVTT text file.
 
 ## Prerequisites
 - an XSLT 1.0 processor (e.g. Saxon 6.5.5 or higher, or `xsltproc`)
 
 ## USAGE
-`EBU-TT-D-Basic-DE2WebVTT.xslt` has no parameters.
+`EBU-TT-D-Basic-RTBF2WebVTT.xslt` has no parameters.
 
 ## NOTES
 Due to limited renderer support for certain features, some limitations
@@ -30,11 +30,11 @@ WebVTT.
 If you use the Saxon parser (version 9.9) you could perform a 
 transformation as follows:
 
-    java -cp saxon9he.jar net.sf.saxon.Transform -s:basic_de_in.xml -xsl:EBU-TT-D-Basic-DE2WebVTT.xslt -o:webvtt_out.vtt
+    java -cp saxon9he.jar net.sf.saxon.Transform -s:basic_de_in.xml -xsl:EBU-TT-D-Basic-RTBF2WebVTT.xslt -o:webvtt_out.vtt
 
 or even simpler:
 
-    java -jar [dir]/saxon9he.jar -s:basic_de_in.xml -xsl:EBU-TT-D-Basic-DE2WebVTT.xslt -o:webvtt_out.vtt
+    java -jar [dir]/saxon9he.jar -s:basic_de_in.xml -xsl:EBU-TT-D-Basic-RTBF2WebVTT.xslt -o:webvtt_out.vtt
 
 where `[dir]` is the directory of the Saxon JAR file.
 
