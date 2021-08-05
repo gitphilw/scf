@@ -214,7 +214,11 @@ limitations under the License.
     
     
     <xsl:template match="tt:br">
-        <xsl:text>&#xA;</xsl:text>
+        <!-- RTBF: Only write a break line if it's between spans, tt:br elements for the sake of vertical placing are not mapped -->
+        <xsl:if test="following-sibling::tt:span">
+            <xsl:text>&#xA;</xsl:text>
+        </xsl:if>
+        
     </xsl:template>
     
     <xsl:template match="tt:span|text()">
