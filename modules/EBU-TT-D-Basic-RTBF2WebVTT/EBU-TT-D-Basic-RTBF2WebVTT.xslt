@@ -15,14 +15,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!-- Stylesheet to transform an EBU-TT-D-Basic-DE file into a WebVTT file -->
+<!-- Stylesheet to transform an EBU-TT-D-Basic-RTBF file into a WebVTT file -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tt="http://www.w3.org/ns/ttml"
     xmlns:tts="http://www.w3.org/ns/ttml#styling"
     version="1.0">
     <xsl:output encoding="UTF-8" method="text"/>
     
-    <!-- text colors, derived from EBU-TT-D-Basic-DE -->
+    <!-- text colors, derived from EBU-TT-D-Basic-RTBF -->
     <xsl:variable name="colors_text_rtf">
         <colors property="color">
             <color class="white" value="#ffffff"/>
@@ -38,7 +38,7 @@ limitations under the License.
     <!-- workaround to convert the result tree fragment to a node set, for further usage - to prevent the need of exsl:node-set() -->
     <xsl:variable name="colors_text" select="document('')/xsl:stylesheet/xsl:variable[@name = 'colors_text_rtf']"/>
     
-    <!-- background colors, derived from EBU-TT-D-Basic-DE -->
+    <!-- background colors, derived from EBU-TT-D-Basic-RTBF -->
     <xsl:variable name="colors_bg_rtf">
         <colors property="background">
             <color class="bg_black" value="rgba(0, 0, 0, 0.76)"/>
