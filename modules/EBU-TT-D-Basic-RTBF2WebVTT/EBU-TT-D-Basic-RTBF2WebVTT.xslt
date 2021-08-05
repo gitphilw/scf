@@ -136,6 +136,10 @@ limitations under the License.
         <xsl:apply-templates select="@begin"/>
         <xsl:text> --> </xsl:text>
         <xsl:apply-templates select="@end"/>
+		
+	<!-- text alignment -->
+        <xsl:apply-templates select="@style"/>
+		
         <!-- align cue to the bottom (with one line of spacing), if content present -->
         <xsl:if test="*">
             <xsl:text> line:</xsl:text>
@@ -178,6 +182,17 @@ limitations under the License.
         <xsl:value-of select="."/>
     </xsl:template>
     
+    <!-- text alignment: -->
+    <xsl:template match="@style">
+		<xsl:choose>
+			<xsl:when test=". = 'textLeft'">
+				<xsl:text> align:left</xsl:text>
+			</xsl:when>
+			<xsl:when test=". = 'textRight'">
+				<xsl:text> align:right</xsl:text>
+			</xsl:when>
+		</xsl:choose>
+    </xsl:template>
     
     <xsl:template match="tt:span|text()" mode="collect_prev">
         <xsl:if test="normalize-space(.) = ''">
