@@ -143,7 +143,7 @@ limitations under the License.
         <!-- align cue to the bottom (with one line of spacing), if content present -->
         <xsl:if test="*">
             <xsl:text> line:</xsl:text>
-            <xsl:value-of select="-3 - count(tt:br)"/>
+            <xsl:value-of select="-1 - count(tt:br)"/>
         </xsl:if>
         <xsl:text>&#xA;</xsl:text>
         
