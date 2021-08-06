@@ -30,6 +30,9 @@ error message.
     - ignoreManualOffsetForTCP
         If set to 1, any manual offset (seconds or frames) will *not* be subtracted from the TCP value (default is 0).
 
+    - constrainTCSvalue
+        If set to 1, ignore TCS value of GSI block and constrain his value to 1 (default is 0).
+
     - timeBase
         Either the value 'smpte' or 'media'. It sets explicitly the ttp:timeBase attribute (default is 'smpte')
 
