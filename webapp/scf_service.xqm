@@ -62,7 +62,7 @@ declare variable $scf:subtitle_format_path_1 := ('stl', 'stlxml', 'ebu-tt', 'ebu
 declare variable $scf:subtitle_format_path_2 := ('srt', 'srtxml', 'ttml');
 
 (: parameters to show in custom conversion case - any parameters required for a specific module are optional here! :)
-declare variable $scf:params_all := ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'separate_tti', 'clear_uda', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'markup', 'templateOPT', 'language', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent');
+declare variable $scf:params_all := ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'separate_tti', 'clear_uda', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'constrain_tcs_value', 'markup', 'templateOPT', 'language', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent');
 
 (: returns a simple HTML form for a conversion from one format to another :)
 declare function scf:form_conversion($format_source, $format_target, $params) {
@@ -87,6 +87,7 @@ declare function scf:form_conversion_fields($params) {
         {if($params = 'discard_user_data') then <li><label><input type="checkbox" name="discard_user_data" value="1"/> discard STL User Data (EBN 0xFE)</label></li> else ()}
         {if($params = 'use_line_height_125') then <li><label><input type="checkbox" name="use_line_height_125" value="1"/> use line height "125%" in EBU-TT-D</label></li> else ()}
         {if($params = 'ignore_manual_offset_for_tcp') then <li><label><input type="checkbox" name="ignore_manual_offset_for_tcp" value="1"/> ignore manual offset for TCP</label></li> else ()}
+        {if($params = 'constrain_tcs_value') then <li><label><input type="checkbox" name="constrain_tcs_value" value="1"/> constrain the stl GSI.TCS value to 1</label></li> else ()}
         {if($params = 'markup') then <li><label><input type="checkbox" name="markup" value="1"/> process markup in subtitle lines</label></li> else ()}
         {if($params = 'templateREQ') then <li><label><input type="checkbox" checked="checked" disabled="disabled"/> use template <select name="template" required="required">{scf:template_files() ! <option>{.}</option>}</select> for conversion</label></li> else () (: required :)}
         {if($params = 'templateOPT') then <li><label><input type="checkbox" onclick="this.nextElementSibling.disabled=!this.checked"/> use template <select name="template" disabled="disabled">{scf:template_files() ! <option>{.}</option>}</select> for conversion</label></li> else () (: optional :)}
@@ -112,11 +113,10 @@ declare
         <h1>SCF service</h1>
         
         <h2>Multi step conversions</h2>
-        {scf:form_conversion('stl', 'ebu-tt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'ignore_manual_offset_for_tcp', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent'))}
+        {scf:form_conversion('stl', 'ebu-tt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'ignore_manual_offset_for_tcp', 'constrain_tcs_value', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent'))}
         {scf:form_conversion('ebu-tt', 'stl', ())}
-        {scf:form_conversion('stl', 'ebu-tt-d-basic-de', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'indent'))}
-        {scf:form_conversion('stl', 'ebu-tt-d-basic-rtbf', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'indent'))}
-        {scf:form_conversion('stl', 'webvtt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp'))}
+        {scf:form_conversion('stl', 'ebu-tt-d-basic-rtbf', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'constrain_tcs_value', 'indent'))}
+        {scf:form_conversion('stl', 'webvtt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'discard_user_data', 'use_line_height_125', 'ignore_manual_offset_for_tcp', 'constrain_tcs_value'))}
         {scf:form_conversion('srt', 'ttml', ('markup', 'templateREQ', 'language', 'indent'))}
         {scf:form_conversion('ttml', 'srt', ())}
 
@@ -141,7 +141,7 @@ declare
         <h2>Single step conversions</h2>
         {scf:form_conversion('stl', 'stlxml', ('separate_tti', 'clear_uda', 'discard_user_data', 'tunnel_stl_source', 'indent'))}
         {scf:form_conversion('stlxml', 'stl', ())}
-        {scf:form_conversion('stlxml', 'ebu-tt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'ignore_manual_offset_for_tcp', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent'))}
+        {scf:form_conversion('stlxml', 'ebu-tt', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'ignore_manual_offset_for_tcp', 'constrain_tcs_value', 'tunnel_stl_source', 'store_stl_source_at_end', 'indent'))}
         {scf:form_conversion('ebu-tt', 'stlxml', ('indent'))}
         {scf:form_conversion('ebu-tt', 'ebu-tt-d', ('offset_seconds', 'offset_frames', 'offset_start_of_programme', 'use_line_height_125', 'indent'))}
         {scf:form_conversion('ebu-tt-d', 'ebu-tt-d-basic-de', ('indent'))}
@@ -264,6 +264,7 @@ declare function scf:call_stlxml2ebu-tt($status as map(*)) as map(*) {
         'offsetInSeconds': 'option_offset_seconds',
         'offsetInFrames': 'option_offset_frames',
         'ignoreManualOffsetForTCP': 'option_ignore_manual_offset_for_tcp',
+        'constrainTCSvalue': 'option_constrain_tcs_value',
         'storeSTLSourceFile': 'option_tunnel_stl_source',
         'storeSTLSourceFileAtEnd': 'option_store_stl_source_at_end'
     }, false())
@@ -362,6 +363,7 @@ items of the status map:
 - option_offset_start_of_programme: if present, subtract Start-of-Programme offset from all timecodes
 - option_use_line_height_125: if present, use the value "125%" (instead of the special value "normal") for the line height in EBU-TT-D
 - option_ignore_manual_offset_for_tcp: if present, any manual offset (seconds or frames) will *not* be subtracted from the TCP value
+- option_constrain_tcs_value: if present, will constrain the stl GSI.TCS value to 1
 - option_separate_tti: if present, do not merge multiple text TTI blocks of the same subtitle
 - option_clear_uda: if present, clear STL User-Defined Area (UDA)
 - option_discard_user_data: if present, discard STL User Data
@@ -385,6 +387,7 @@ declare
   %rest:form-param("offset_start_of_programme", "{$offset_start_of_programme}")
   %rest:form-param("use_line_height_125", "{$use_line_height_125}")
   %rest:form-param("ignore_manual_offset_for_tcp", "{$ignore_manual_offset_for_tcp}")
+  %rest:form-param("constrain_tcs_value", "{$constrain_tcs_value}")
   %rest:form-param("separate_tti", "{$separate_tti}")
   %rest:form-param("clear_uda", "{$clear_uda}")
   %rest:form-param("discard_user_data", "{$discard_user_data}")
@@ -403,6 +406,7 @@ declare
     $offset_start_of_programme as xs:string?,
     $use_line_height_125 as xs:string?,
     $ignore_manual_offset_for_tcp as xs:string?,
+    $constrain_tcs_value as xs:string?,
     $separate_tti as xs:string?,
     $clear_uda as xs:string?,
     $discard_user_data as xs:string?,
@@ -419,6 +423,7 @@ declare
         'option_offset_start_of_programme': 'to consider the Start-of-Programme offset',
         'option_use_line_height_125': 'to use the line height value "125%"',
         'option_ignore_manual_offset_for_tcp': 'to ignore any manual offset for TCP',
+        'option_constrain_tcs_value': 'to constrain the stl GSI.TCS value to 1',
         'option_separate_tti': 'to disable text TTI block merging',
         'option_clear_uda': 'to clear STL User-Defined Area (UDA)',
         'option_discard_user_data': 'to remove STL User Data',
@@ -443,6 +448,7 @@ declare
         'option_offset_start_of_programme': $offset_start_of_programme,
         'option_use_line_height_125': $use_line_height_125,
         'option_ignore_manual_offset_for_tcp': $ignore_manual_offset_for_tcp,
+        'option_constrain_tcs_value': $constrain_tcs_value,
         'option_separate_tti': $separate_tti,
         'option_clear_uda': $clear_uda,
         'option_discard_user_data': $discard_user_data,

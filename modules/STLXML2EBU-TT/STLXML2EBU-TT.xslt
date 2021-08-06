@@ -39,6 +39,8 @@ limitations under the License.
     <xsl:param name="offsetTCP" select="0"/>
     <!--** If set to 1, any manual offset (seconds or frames) will *not* be subtracted from the TCP value -->
     <xsl:param name="ignoreManualOffsetForTCP" select="0"/>
+    <!--** If set to 1, ignore TCS value of GSI block and constrain his value to 1 -->
+    <xsl:param name="constrainTCSvalue" select="0"/>
     <!--** If set to 1, enables binary data tunnelling of the original STL source file -->
     <xsl:param name="storeSTLSourceFile" select="0"/>
     <!--** If set to 1, enables storage of the tunnelled binary at the document end instead of the document head -->
@@ -156,7 +158,7 @@ limitations under the License.
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
     <xsl:template match="StlXml">
         <!--@ Interrupt if the STLXML file's time codes are not validated, i.e. TCS is set to '0' -->
-        <xsl:if test="HEAD/GSI/TCS = '0'">
+        <xsl:if test="$constrainTCSvalue = '0' and HEAD/GSI/TCS = '0'">
             <xsl:message terminate="yes">
                 Files with a TCS value set to 0 are not supported by this transformation.
             </xsl:message>
