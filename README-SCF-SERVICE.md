@@ -16,6 +16,7 @@ The following subtitle formats/profiles are supported:
 - EBU-TT
 - EBU-TT-D
 - EBU-TT-D-Basic-DE
+- EBU-TT-D-Basic-RTBF
 - WebVTT
 - SRT
 - SRTXML (an SCF internal intermediate format)
@@ -182,7 +183,7 @@ The following request parameters are available:
   format based on XML.
 
 For the two format fields, the following values are supported:
-`stl`, `stlxml`, `ebu-tt`, `ebu-tt-d`, `ebu-tt-d-basic-de`, `srt`,
+`stl`, `stlxml`, `ebu-tt`, `ebu-tt-d`, `ebu-tt-d-basic-de`, `ebu-tt-d-basic-rtbf`,`srt`,
 `srtxml`, `ttml`, `webvtt`.
 
 Note that option fields may not be supported for all possible conversion

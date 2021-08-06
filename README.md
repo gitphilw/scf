@@ -77,6 +77,7 @@ Currently the SCF has the following core modules:
 - EBU-TT2STLXML
 - EBU-TT2EBU-TT-D
 - EBU-TT-D2EBU-TT-D-Basic-DE
+- EBU-TT-D2EBU-TT-D-Basic-RTBF
 - FlashDFXP2EBU-TT-D-Basic-DE
 - SRTXML-XSD
 - SRT2SRTXML
@@ -84,6 +85,7 @@ Currently the SCF has the following core modules:
 - SRTXML2TTML
 - TTML2SRTXML
 - EBU-TT-D-Basic-DE2WebVTT
+- EBU-TT-D-Basic-RTBF2WebVTT
 
 Additionally there are various helper submodules that can be found in the
 folder "TT-Helper". These modules solve smaller transformation tasks.
@@ -137,6 +139,12 @@ been created according to EBU Tech 3380 into EBU-TT-D-Basic-DE files
 that conform to the "XML-Format for Distribution of Subtitles in the ARD
 Mediathek portals" (EBU-TT-D-Basic-DE).
 
+#### EBU-TT-D2EBU-TT-D-Basic-RTBF
+
+The EBU-TT-D2EBU-TT-D-Basic-RTBF XSLT converts EBU-TT-D files that have
+been created according to EBU Tech 3380 into EBU-TT-D-Basic-RTBF files
+that conform to the "XML-Format for Distribution of Subtitles in the RTBF".
+
 #### FlashDFXP2EBU-TT-D-Basic-DE
 
 The FlashDFXP2EBU-TT-D-Basic-DE module converts a TTML/DFXP file made
@@ -179,6 +187,11 @@ is a community driven format.
 
 The EBU-TT-D-Basic-DE2WebVTT XSLT converts an EBU-TT-D-Basic-DE file
 into a WebVTT file, including text colors.
+
+#### EBU-TT-D-Basic-RTBF2WebVTT
+
+The EBU-TT-D-Basic-RTBF2WebVTT XSLT converts an EBU-TT-D-Basic-RTBF file
+into a WebVTT file, including text colors and placement.
 
 ### Tests
 
