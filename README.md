@@ -5,8 +5,8 @@ converting XML based subtitle formats. Main target is to build up a
 flexible and extensible transformation pipeline to convert EBU STL
 formats and EBU-TT subtitle formats.
 
-The SCF RTBF fork is based on the  IRT-Open-Source/scf  release with the version 1.9.1.
-This version is 1.9.1-RTBF
+The SCF **RTBF fork** is based on the  IRT-Open-Source/scf  release with the version 1.9.1. (master commit dc839a1d9178986a313f687eb8742bae53b41535)
+**This version is 1.9.1-RTBF**
 
 ## License
 
